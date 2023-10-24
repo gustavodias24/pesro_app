@@ -8,7 +8,7 @@
     android:background="@drawable/background_blue"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".MainActivity">
+    tools:context=".activitys.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,23 +17,19 @@
         android:orientation="vertical"
         android:padding="8dp">
 
-        <TextView
-            android:id="@+id/textView2"
+        <ImageView
+            android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Bem-vindo."
-            android:textColor="#303030"
-            android:textSize="34sp"
-            android:textStyle="bold" />
+            android:src="@raw/logo" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/empresas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:layout_marginTop="16dp"
-            android:backgroundTint="@color/red"
+            android:backgroundTint="@color/orange"
             android:padding="8dp"
             android:text="Empresas"
             android:textAllCaps="true"
@@ -42,11 +38,11 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/motoristas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:backgroundTint="@color/red"
+            android:backgroundTint="@color/orange"
             android:padding="8dp"
             android:text="Motoristas"
             android:textAllCaps="true"
@@ -54,15 +50,13 @@
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/textView"
+        <ImageView
+
+            android:id="@+id/imageView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:padding="8dp"
-            android:text="Fazer login."
-            android:textColor="#0307F4"
-            android:textStyle="bold" />
+            android:src="@raw/infosgerais" />
+
     </LinearLayout>
 
 </LinearLayout>
