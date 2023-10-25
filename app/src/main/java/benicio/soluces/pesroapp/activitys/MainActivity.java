@@ -24,17 +24,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getSupportActionBar().setTitle("Área inicial");
 
         mainBinding.motoristas.setOnClickListener(this);
+        mainBinding.empresas.setOnClickListener(this);
 
     }
 
     @Override
     public void onClick(View view) {
+        Intent i = new Intent(getApplicationContext(), CadastrosActivity.class);
 
         if ( view.getId() == mainBinding.motoristas.getId() ){
-            Intent i = new Intent(getApplicationContext(), CadastrosActivity.class);
             i.putExtra("secao", "Motoristas");
-            startActivity(i);
+        }else if ( view.getId() == mainBinding.empresas.getId() ){
+            i.putExtra("secao", "Empresas");
         }
-
+        startActivity(i);
     }
 }

@@ -11,6 +11,7 @@ import android.view.MenuItem;
 
 import benicio.soluces.pesroapp.R;
 import benicio.soluces.pesroapp.databinding.ActivityCadastrosBinding;
+import benicio.soluces.pesroapp.databinding.AdicionarEmpresaLayoutBinding;
 import benicio.soluces.pesroapp.databinding.AdicionarMotoristaLayoutBinding;
 
 public class CadastrosActivity extends AppCompatActivity {
@@ -32,9 +33,7 @@ public class CadastrosActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mainBinding.textInfo.setText(
-                String.format("%s não cadastrados.", secao)
-        );
+
 
         criarDialogCadastro();
         mainBinding.cadastroFab.setOnClickListener( view -> {
@@ -56,6 +55,10 @@ public class CadastrosActivity extends AppCompatActivity {
             b.setTitle("Cadastrar um motorista.");
             b.setView(AdicionarMotoristaLayoutBinding.inflate(getLayoutInflater()).getRoot());
 
+        }
+        if ( secao.equals("Empresas") ){
+            b.setTitle("Cadastrar uma empresa.");
+            b.setView(AdicionarEmpresaLayoutBinding.inflate(getLayoutInflater()).getRoot());
         }
         dialogCadastro = b.create();
 
