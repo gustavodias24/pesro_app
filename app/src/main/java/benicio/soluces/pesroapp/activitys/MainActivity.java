@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mainBinding.motoristas.setOnClickListener(this);
         mainBinding.empresas.setOnClickListener(this);
+        mainBinding.vendas.setOnClickListener(this);
 
     }
 
@@ -36,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             i.putExtra("secao", "Motoristas");
         }else if ( view.getId() == mainBinding.empresas.getId() ){
             i.putExtra("secao", "Empresas");
+        }else if ( view.getId() == mainBinding.vendas.getId() ){
+            i.putExtra("secao", "Vendas");
         }
         startActivity(i);
     }
