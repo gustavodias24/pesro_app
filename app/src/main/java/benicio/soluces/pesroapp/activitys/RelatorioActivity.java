@@ -1,6 +1,7 @@
 package benicio.soluces.pesroapp.activitys;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
@@ -9,6 +10,7 @@ import android.view.MenuItem;
 
 import benicio.soluces.pesroapp.R;
 import benicio.soluces.pesroapp.databinding.ActivityRelatorioBinding;
+import benicio.soluces.pesroapp.databinding.AdicionarTransacaoBinding;
 
 public class RelatorioActivity extends AppCompatActivity {
 
@@ -24,7 +26,13 @@ public class RelatorioActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
+        mainBinding.cadastroFab.setOnClickListener( view -> {
+            AlertDialog.Builder b = new AlertDialog.Builder(RelatorioActivity.this);
+            AdicionarTransacaoBinding transacaoBinding = AdicionarTransacaoBinding.inflate(getLayoutInflater());
+            b.setView(transacaoBinding.getRoot());
+            b.setTitle("Adicionar transação");
+            b.create().show();
+        });
     }
 
     @Override
