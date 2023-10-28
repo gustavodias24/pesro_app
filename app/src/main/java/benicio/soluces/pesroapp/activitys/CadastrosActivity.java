@@ -19,7 +19,7 @@ import com.jaredrummler.materialspinner.MaterialSpinner;
 import java.util.ArrayList;
 import java.util.List;
 
-import benicio.soluces.pesroapp.Produto;
+import benicio.soluces.pesroapp.models.Produto;
 import benicio.soluces.pesroapp.R;
 import benicio.soluces.pesroapp.adapters.AdapterProduto;
 import benicio.soluces.pesroapp.databinding.ActivityCadastrosBinding;

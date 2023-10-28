@@ -62,7 +62,18 @@
             android:textColor="#F8F8F8"
             android:textSize="16sp"
             android:textStyle="bold" />
-
+        <Button
+            android:id="@+id/faturamento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:backgroundTint="@color/orange"
+            android:padding="8dp"
+            android:text="Faturamento"
+            android:textAllCaps="true"
+            android:textColor="#F8F8F8"
+            android:textSize="16sp"
+            android:textStyle="bold" />
         <ImageView
 
             android:id="@+id/imageView2"

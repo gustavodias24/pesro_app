@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import benicio.soluces.pesroapp.Produto;
+import benicio.soluces.pesroapp.models.Produto;
 import benicio.soluces.pesroapp.R;
 
 public class AdapterProduto extends RecyclerView.Adapter<AdapterProduto.MyViewHolder> {

@@ -1,4 +1,4 @@
-package benicio.soluces.pesroapp;
+package benicio.soluces.pesroapp.models;
 
 public class Produto {
     String nome, quantidade, valor;

@@ -12,17 +12,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PESROAPP"
         tools:targetApi="31">
-
+        <activity
+            android:name=".activitys.RelatorioActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
         <activity
             android:name=".activitys.CadastrosActivity"
             android:exported="false"
-            android:theme="@style/Theme.MaterialComponents.Light.DarkActionBar"
-            android:screenOrientation="portrait"/>
-
-        <activity
             android:screenOrientation="portrait"
+            android:theme="@style/Theme.MaterialComponents.Light.DarkActionBar" />
+        <activity
             android:name=".activitys.MainActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.MaterialComponents.Light.DarkActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
