@@ -32,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:hint="Data venda"
+            android:hint="Data retirada"
             android:paddingBottom="8dp">
 
             <com.google.android.material.textfield.TextInputEditText
