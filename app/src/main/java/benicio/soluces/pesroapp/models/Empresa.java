@@ -56,10 +56,10 @@ public class Empresa {
 
     @Override
     public String toString() {
-        return  "Nome: '" + nome + '\n' +
-                "CNPJ: '" + cnpj + '\n' +
-                "Funcionários: '" + funcionarios + '\n' +
-                "Whatsapp: '" + whatsapp + '\n' +
-                "Endereço: '" + endereco ;
+        return  "Nome: " + nome + '\n' +
+                "CNPJ: " + cnpj + '\n' +
+                "Funcionários: \n" + funcionarios + '\n' +
+                "Whatsapp: " + whatsapp + '\n' +
+                "Endereço: " + endereco ;
     }
 }

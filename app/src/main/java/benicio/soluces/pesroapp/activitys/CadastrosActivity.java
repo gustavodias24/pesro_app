@@ -33,9 +33,11 @@ import benicio.soluces.pesroapp.databinding.ActivityCadastrosBinding;
 import benicio.soluces.pesroapp.databinding.AdicionarEmpresaLayoutBinding;
 import benicio.soluces.pesroapp.databinding.AdicionarMotoristaLayoutBinding;
 import benicio.soluces.pesroapp.databinding.AdicionarVendaBinding;
+import benicio.soluces.pesroapp.models.Transacao;
 import benicio.soluces.pesroapp.models.Venda;
 import benicio.soluces.pesroapp.utils.EmpresaSave;
 import benicio.soluces.pesroapp.utils.MotoristaSave;
+import benicio.soluces.pesroapp.utils.TransacaoSave;
 import benicio.soluces.pesroapp.utils.VendaSave;
 
 public class CadastrosActivity extends AppCompatActivity {
@@ -241,7 +243,7 @@ public class CadastrosActivity extends AppCompatActivity {
             motoristaBinding.EmpresaParticularField.getEditText().setText("");
 
             dialogCadastro.dismiss();
-
+            mainBinding.textInfo.setVisibility(View.GONE);
             Toast.makeText(this, "Motorista cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
 
         });
@@ -294,9 +296,10 @@ public class CadastrosActivity extends AppCompatActivity {
             dataRetirada = viewVendas.dataRetiradaField.getEditText().getText().toString();
             localRetirada = viewVendas.localField.getEditText().getText().toString();
 
-            vendas.add(
-                    new Venda( dataVenda, dataRetirada, localRetirada, listaProduto)
-            );
+            Venda venda = new Venda( dataVenda, dataRetirada, localRetirada, listaProduto);
+            vendas.add(venda);
+
+            cadastrarVendaFaturamento(venda);
 
             VendaSave.saveVendas(
                     getApplicationContext(),
@@ -309,9 +312,33 @@ public class CadastrosActivity extends AppCompatActivity {
             viewVendas.dataVendaField.getEditText().setText("");
             viewVendas.dataRetiradaField.getEditText().setText("");
            viewVendas.localField.getEditText().setText("");
+
+
         });
 
         return  viewVendas.getRoot();
+    }
+
+    private void cadastrarVendaFaturamento(Venda venda){
+        List<Transacao> transacoes = TransacaoSave.getTransacao(getApplicationContext()) == null
+                ? new ArrayList<>(): TransacaoSave.getTransacao(getApplicationContext());
+
+        Transacao transacaoVenda = new Transacao();
+        transacaoVenda.setData(venda.getDataVenda());
+        transacaoVenda.setDescricao("Venda de produtos.");
+        transacaoVenda.setTipo(1);
+
+        float valor = 0.0f;
+        for (Produto produto : venda.getListaProdutos()){
+            valor += Float.parseFloat(produto.getValor().replace(",", "."));
+        }
+        transacaoVenda.setValor(valor);
+
+        if ( !transacoes.contains(transacaoVenda)){
+            transacoes.add(transacaoVenda);
+        }
+
+        TransacaoSave.saveTransacao(getApplicationContext(), transacoes);
     }
 
 }
