@@ -22,7 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import benicio.soluces.pesroapp.adapters.AdapterEmpresa;
+import benicio.soluces.pesroapp.adapters.AdapterMotorista;
 import benicio.soluces.pesroapp.models.Empresa;
+import benicio.soluces.pesroapp.models.Motorista;
 import benicio.soluces.pesroapp.models.Produto;
 import benicio.soluces.pesroapp.R;
 import benicio.soluces.pesroapp.adapters.AdapterProduto;
@@ -31,6 +33,7 @@ import benicio.soluces.pesroapp.databinding.AdicionarEmpresaLayoutBinding;
 import benicio.soluces.pesroapp.databinding.AdicionarMotoristaLayoutBinding;
 import benicio.soluces.pesroapp.databinding.AdicionarVendaBinding;
 import benicio.soluces.pesroapp.utils.EmpresaSave;
+import benicio.soluces.pesroapp.utils.MotoristaSave;
 
 public class CadastrosActivity extends AppCompatActivity {
 
@@ -39,8 +42,13 @@ public class CadastrosActivity extends AppCompatActivity {
     private String secao;
     private Dialog dialogCadastro;
     private RecyclerView recyclerGereneric;
+
     private AdapterEmpresa adapterEmpresa;
     private List<Empresa> empresas = new ArrayList<>();
+
+    private AdapterMotorista adapterMotorista;
+    private List<Motorista> motoristas = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +86,7 @@ public class CadastrosActivity extends AppCompatActivity {
         b.setCancelable(false);
         if ( secao.equals("Motoristas")){
             b.setTitle("Cadastrar um motorista.");
-            b.setView(AdicionarMotoristaLayoutBinding.inflate(getLayoutInflater()).getRoot());
+            b.setView(configurarCadastroMotorista());
 
         }
         if ( secao.equals("Empresas") ){
@@ -144,6 +152,23 @@ public class CadastrosActivity extends AppCompatActivity {
                     getApplicationContext()
             );
             recyclerGereneric.setAdapter(adapterEmpresa);
+        }else if ( secao.equals("Motoristas") ){
+
+            if ( MotoristaSave.getMotoristas(getApplicationContext()) != null){
+                motoristas.addAll(MotoristaSave.getMotoristas(getApplicationContext()));
+            }
+
+            if (!motoristas.isEmpty()){ mainBinding.textInfo.setVisibility(View.GONE);}
+
+            adapterMotorista = new AdapterMotorista(
+                    motoristas,
+                    getApplicationContext()
+            );
+
+            mainBinding.textInfo.setVisibility(View.GONE);
+
+            recyclerGereneric.setAdapter(adapterMotorista);
+
         }
 
     }
@@ -184,8 +209,55 @@ public class CadastrosActivity extends AppCompatActivity {
                 empresas.clear();
                 empresas.addAll(EmpresaSave.getEmpresas(getApplicationContext()));
                 adapterEmpresa.notifyDataSetChanged();
+                Toast.makeText(this, "Empresa cadastrada com sucesso!", Toast.LENGTH_SHORT).show();
             }
         });
         return bindingEmpresa.getRoot();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private View configurarCadastroMotorista(){
+        AdicionarMotoristaLayoutBinding motoristaBinding = AdicionarMotoristaLayoutBinding.inflate(getLayoutInflater());
+
+        motoristaBinding.cancelar.setOnClickListener( view -> {
+            dialogCadastro.dismiss();
+        });
+
+
+        motoristaBinding.cadastrar.setOnClickListener( view -> {
+            String nome, rg, cpf, whatsapp, endereco, empresaParticular;
+
+            nome = motoristaBinding.nomeField.getEditText().getText().toString();
+            rg = motoristaBinding.rgField.getEditText().getText().toString();
+            cpf = motoristaBinding.cpfField.getEditText().getText().toString();
+            whatsapp = motoristaBinding.WhatsAppField.getEditText().getText().toString();
+            endereco = motoristaBinding.EnderecoField.getEditText().getText().toString();
+            empresaParticular = motoristaBinding.EmpresaParticularField.getEditText().getText().toString();
+
+            motoristas.add(new Motorista(
+                    nome, rg, cpf, whatsapp, endereco, empresaParticular
+            ));
+
+            MotoristaSave.saveMotoristas(
+                    getApplicationContext(),
+                    motoristas
+            );
+            adapterMotorista.notifyDataSetChanged();
+
+            motoristaBinding.nomeField.getEditText().setText("");
+            motoristaBinding.rgField.getEditText().setText("");
+            motoristaBinding.cpfField.getEditText().setText("");
+            motoristaBinding.WhatsAppField.getEditText().setText("");;
+            motoristaBinding.EnderecoField.getEditText().setText("");
+            motoristaBinding.EmpresaParticularField.getEditText().setText("");
+
+            dialogCadastro.dismiss();
+
+            Toast.makeText(this, "Motorista cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
+
+        });
+
+
+        return motoristaBinding.getRoot();
     }
 }

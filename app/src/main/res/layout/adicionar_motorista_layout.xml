@@ -93,7 +93,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/cadastrar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/orange"
@@ -102,7 +102,7 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/cancelar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#FF0000"

@@ -62,4 +62,14 @@ public class Motorista {
     public void setEmpresa_or_particular(String empresa_or_particular) {
         this.empresa_or_particular = empresa_or_particular;
     }
+
+    @Override
+    public String toString() {
+        return  "Nome: " + nome + '\n' +
+                "RG: " + rg + '\n' +
+                "CPF: " + cpf + '\n' +
+                "Whatsapp: " + whatsapp + '\n' +
+                "Endereco: " + endereco + '\n' +
+                "Empresa: " + empresa_or_particular;
+    }
 }
