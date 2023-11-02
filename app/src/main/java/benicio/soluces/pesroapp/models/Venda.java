@@ -47,4 +47,19 @@ public class Venda {
     public void setListaProdutos(List<Produto> listaProdutos) {
         this.listaProdutos = listaProdutos;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder listaProdutoString = new StringBuilder();
+        for ( Produto produto : listaProdutos){
+
+            listaProdutoString.append(
+                    String.format("%sx%s R$%s\n", produto.getQuantidade(), produto.getNome(), produto.getValor()));
+        }
+
+        return  "Data Venda: " + dataVenda + '\n' +
+                "Data Retirada: " + dataRetirada + '\n' +
+                "Local De Retirada: " + localRetirada + '\n' +
+                "Lista De Produtos:\n" + listaProdutoString ;
+    }
 }

@@ -23,6 +23,7 @@ import java.util.List;
 
 import benicio.soluces.pesroapp.adapters.AdapterEmpresa;
 import benicio.soluces.pesroapp.adapters.AdapterMotorista;
+import benicio.soluces.pesroapp.adapters.AdapterVendas;
 import benicio.soluces.pesroapp.models.Empresa;
 import benicio.soluces.pesroapp.models.Motorista;
 import benicio.soluces.pesroapp.models.Produto;
@@ -32,8 +33,10 @@ import benicio.soluces.pesroapp.databinding.ActivityCadastrosBinding;
 import benicio.soluces.pesroapp.databinding.AdicionarEmpresaLayoutBinding;
 import benicio.soluces.pesroapp.databinding.AdicionarMotoristaLayoutBinding;
 import benicio.soluces.pesroapp.databinding.AdicionarVendaBinding;
+import benicio.soluces.pesroapp.models.Venda;
 import benicio.soluces.pesroapp.utils.EmpresaSave;
 import benicio.soluces.pesroapp.utils.MotoristaSave;
+import benicio.soluces.pesroapp.utils.VendaSave;
 
 public class CadastrosActivity extends AppCompatActivity {
 
@@ -48,6 +51,9 @@ public class CadastrosActivity extends AppCompatActivity {
 
     private AdapterMotorista adapterMotorista;
     private List<Motorista> motoristas = new ArrayList<>();
+
+    private AdapterVendas adapterVendas;
+    private List<Venda> vendas = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,40 +101,10 @@ public class CadastrosActivity extends AppCompatActivity {
         }
 
         if ( secao.equals("Vendas") ){
-            AdicionarVendaBinding viewVendas = AdicionarVendaBinding.inflate(getLayoutInflater());
-            List<Produto> listaProduto = new ArrayList<>();
-            AdapterProduto adapterProduto = new AdapterProduto(listaProduto, getApplicationContext());
-
-            MaterialSpinner spinner = viewVendas.produtosField;
-            spinner.setItems("Areia fina", "Areia media", "Areia grossa", "Pedrisco", "Traço", "Barro/aterro", "Brita", "Piçarro");
-            spinner.setOnItemSelectedListener((MaterialSpinner.OnItemSelectedListener<String>) (view, position, id, item) -> Snackbar.make(view,  spinner.getText().toString(), Snackbar.LENGTH_LONG).show());
-
-            RecyclerView recyclerProdutos = viewVendas.listaProdutosRecycler;
-            recyclerProdutos.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-            recyclerProdutos.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.HORIZONTAL));
-            recyclerProdutos.setHasFixedSize(true);
-            recyclerProdutos.setAdapter(adapterProduto);
-
-            viewVendas.adicionarProdutoVenda.setOnClickListener( view -> {
-                int quantidade = Integer.parseInt(viewVendas.quantidadeField.getEditText().getText().toString());
-                float valor = Float.parseFloat(viewVendas.precoField.getEditText().getText().toString());
-                float ValorTotal = quantidade * valor;
-
-                listaProduto.add(new Produto(
-                        spinner.getText().toString(),
-                        String.format("%d", quantidade),
-                        String.format("%.2f", ValorTotal)
-                ));
-
-                adapterProduto.notifyDataSetChanged();
-                viewVendas.quantidadeField.getEditText().setText("");
-                viewVendas.precoField.getEditText().setText("");
-
-            });
-
             b.setTitle("Cadastrar uma venda.");
-            b.setView(viewVendas.getRoot());
+            b.setView(configurarCadastroVenda());
         }
+
         dialogCadastro = b.create();
 
     }
@@ -165,9 +141,22 @@ public class CadastrosActivity extends AppCompatActivity {
                     getApplicationContext()
             );
 
-            mainBinding.textInfo.setVisibility(View.GONE);
-
             recyclerGereneric.setAdapter(adapterMotorista);
+
+        }else if ( secao.equals("Vendas") ){
+
+            if ( VendaSave.getVendas(getApplicationContext()) != null){
+                vendas.addAll(VendaSave.getVendas(getApplicationContext()));
+            }
+
+            if (!vendas.isEmpty()){ mainBinding.textInfo.setVisibility(View.GONE);}
+
+            adapterVendas = new AdapterVendas(
+                    vendas,
+                    getApplicationContext()
+            );
+
+            recyclerGereneric.setAdapter(adapterVendas);
 
         }
 
@@ -260,4 +249,69 @@ public class CadastrosActivity extends AppCompatActivity {
 
         return motoristaBinding.getRoot();
     }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private View configurarCadastroVenda(){
+        AdicionarVendaBinding viewVendas = AdicionarVendaBinding.inflate(getLayoutInflater());
+        List<Produto> listaProduto = new ArrayList<>();
+        AdapterProduto adapterProduto = new AdapterProduto(listaProduto, getApplicationContext());
+
+        MaterialSpinner spinner = viewVendas.produtosField;
+        spinner.setItems("Areia fina", "Areia media", "Areia grossa", "Pedrisco", "Traço", "Barro/aterro", "Brita", "Piçarro");
+        spinner.setOnItemSelectedListener((MaterialSpinner.OnItemSelectedListener<String>) (view, position, id, item) -> Snackbar.make(view,  spinner.getText().toString(), Snackbar.LENGTH_LONG).show());
+
+        RecyclerView recyclerProdutos = viewVendas.listaProdutosRecycler;
+        recyclerProdutos.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        recyclerProdutos.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.HORIZONTAL));
+        recyclerProdutos.setHasFixedSize(true);
+        recyclerProdutos.setAdapter(adapterProduto);
+
+        viewVendas.adicionarProdutoVenda.setOnClickListener( view -> {
+            int quantidade = Integer.parseInt(viewVendas.quantidadeField.getEditText().getText().toString());
+            float valor = Float.parseFloat(viewVendas.precoField.getEditText().getText().toString());
+            float ValorTotal = quantidade * valor;
+
+            listaProduto.add(new Produto(
+                    spinner.getText().toString(),
+                    String.format("%d", quantidade),
+                    String.format("%.2f", ValorTotal)
+            ));
+
+            adapterProduto.notifyDataSetChanged();
+            viewVendas.quantidadeField.getEditText().setText("");
+            viewVendas.precoField.getEditText().setText("");
+
+        });
+
+        viewVendas.cancelar.setOnClickListener( view -> {
+            dialogCadastro.dismiss();
+        });
+
+        viewVendas.cadastrar.setOnClickListener( view -> {
+            String dataVenda, dataRetirada, localRetirada;
+
+            dataVenda = viewVendas.dataVendaField.getEditText().getText().toString();
+            dataRetirada = viewVendas.dataRetiradaField.getEditText().getText().toString();
+            localRetirada = viewVendas.localField.getEditText().getText().toString();
+
+            vendas.add(
+                    new Venda( dataVenda, dataRetirada, localRetirada, listaProduto)
+            );
+
+            VendaSave.saveVendas(
+                    getApplicationContext(),
+                    vendas
+            );
+            mainBinding.textInfo.setVisibility(View.GONE);
+            dialogCadastro.dismiss();
+            adapterVendas.notifyDataSetChanged();
+
+            viewVendas.dataVendaField.getEditText().setText("");
+            viewVendas.dataRetiradaField.getEditText().setText("");
+           viewVendas.localField.getEditText().setText("");
+        });
+
+        return  viewVendas.getRoot();
+    }
+
 }
