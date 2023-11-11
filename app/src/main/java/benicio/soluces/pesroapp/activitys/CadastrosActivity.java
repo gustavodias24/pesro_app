@@ -127,7 +127,8 @@ public class CadastrosActivity extends AppCompatActivity {
 
             adapterEmpresa = new AdapterEmpresa(
                     empresas,
-                    getApplicationContext()
+                    getApplicationContext(),
+                    0
             );
             recyclerGereneric.setAdapter(adapterEmpresa);
         }else if ( secao.equals("Motoristas") ){
@@ -161,7 +162,6 @@ public class CadastrosActivity extends AppCompatActivity {
             recyclerGereneric.setAdapter(adapterVendas);
 
         }
-
     }
     @SuppressLint("NotifyDataSetChanged")
     private View configurarCadastroEmpresa(){

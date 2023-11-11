@@ -1,11 +1,13 @@
 package benicio.soluces.pesroapp.activitys;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 
 import benicio.soluces.pesroapp.R;
@@ -23,26 +25,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         getSupportActionBar().setTitle("Área inicial");
 
-        mainBinding.motoristas.setOnClickListener(this);
-        mainBinding.empresas.setOnClickListener(this);
+
         mainBinding.vendas.setOnClickListener(this);
+        mainBinding.cadastro.setOnClickListener(this);
         mainBinding.faturamento.setOnClickListener(this);
+        mainBinding.compras.setOnClickListener(this);
 
     }
 
     @Override
     public void onClick(View view) {
-        Intent i = new Intent(getApplicationContext(), CadastrosActivity.class);
+        Intent i = new Intent(getApplicationContext(), SelecionarEmpresaActivity.class);
 
-        if ( view.getId() == mainBinding.motoristas.getId() ){
-            i.putExtra("secao", "Motoristas");
-        }else if ( view.getId() == mainBinding.empresas.getId() ){
-            i.putExtra("secao", "Empresas");
-        }else if ( view.getId() == mainBinding.vendas.getId() ){
+        if ( view.getId() == mainBinding.vendas.getId() ){
             i.putExtra("secao", "Vendas");
-        } else if ( view.getId() == mainBinding.faturamento.getId() ){
+        } else if ( view.getId() == mainBinding.faturamento.getId()  || view.getId() == mainBinding.compras.getId()){
             i = new Intent(getApplicationContext(), RelatorioActivity.class);
+        }else if( view.getId() == mainBinding.cadastro.getId() ){
+            i = new Intent(getApplicationContext(), CadastroMainActivity.class);
         }
         startActivity(i);
     }
+
+
 }

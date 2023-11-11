@@ -13,7 +13,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
+        android:layout_gravity="center|center_vertical"
+        android:gravity="center"
         android:orientation="vertical"
         android:padding="8dp">
 
@@ -24,57 +25,33 @@
             android:src="@raw/logo" />
 
         <Button
-            android:id="@+id/cadastro"
+            android:id="@+id/empresas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:layout_marginTop="16dp"
             android:backgroundTint="@color/orange"
             android:padding="8dp"
-            android:text="cadastro"
+            android:text="Empresas"
             android:textAllCaps="true"
             android:textColor="#F8F8F8"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/vendas"
+            android:id="@+id/motoristas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:layout_marginTop="16dp"
             android:backgroundTint="@color/orange"
             android:padding="8dp"
-            android:text="Vendas"
+            android:text="motoristas"
             android:textAllCaps="true"
             android:textColor="#F8F8F8"
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/compras"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:backgroundTint="@color/orange"
-            android:padding="8dp"
-            android:text="Compras"
-            android:textAllCaps="true"
-            android:textColor="#F8F8F8"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/faturamento"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:backgroundTint="@color/orange"
-            android:padding="8dp"
-            android:text="relatório"
-            android:textAllCaps="true"
-            android:textColor="#F8F8F8"
-            android:textSize="16sp"
-            android:textStyle="bold" />
         <ImageView
 
             android:id="@+id/imageView2"

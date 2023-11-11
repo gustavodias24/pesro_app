@@ -43,7 +43,7 @@ public class RelatorioActivity extends AppCompatActivity {
         mainBinding = ActivityRelatorioBinding.inflate(getLayoutInflater());
         setContentView(mainBinding.getRoot());
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        getSupportActionBar().setTitle("Faturamento");
+        getSupportActionBar().setTitle("Relatório");
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
